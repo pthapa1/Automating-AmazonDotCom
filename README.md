@@ -1,11 +1,11 @@
 ### To Run the Test.
 
-1. #####Install Node#####
+1. **Install Node**
 
    - **Install node** in your system as instructed [here](https://nodejs.org/en/download/) with installer.
    - Or, you can also use package manager to install node in your system. [Follow the instructions here](https://nodejs.org/en/download/package-manager/)
 
-2. #####Clone the GitHub repo#####
+2. **Clone the GitHub repo**
 
 ```text
 git clone https://github.com/pthapa1/Automating-AmazonDotCom.git
@@ -18,13 +18,13 @@ simply download the folder from GitHub. Click on Download Zip.
 
 ---
 
-3. #####Install dependencies on the root folder.#####
+3. **Install dependencies on the root folder.**
 
 ```text
 npm install
 ```
 
-4. #####After installing dependencies, to run the test on the Browser, use one of the following commands#####
+4. **After installing dependencies, to run the test on the Browser, use one of the following commands**
 
 ```text
 npx cypress open
@@ -36,9 +36,9 @@ npx cypress open
 npm run runner
 ```
 
-Then click on amazon.ts file inside the Guild Education folder.
+When Cypres Runner Opens, click on amazon.ts file inside the Guild Education folder.
 
-5. #####To run the test on headless mode, use#####
+5. **To run the test on headless mode, use**
 
 ```
 npx cypress run --spec "cypress\integration\Guild Education\amazon.ts"
