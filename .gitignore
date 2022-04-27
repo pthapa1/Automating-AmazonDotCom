@@ -1,0 +1,19 @@
+#dependencies
+
+/node_modules
+
+
+#personal projects fixture files 
+cypress/fixtures/customerInfo.json
+cypress/fixtures/dealerInfo.json
+cypress/fixtures/loginInfo.json
+cypress/fixtures/serialNumber.json
+
+#personal projects
+cypress/integration/API Testing
+cypress/integration/createCustomer
+cypress/integration/createDealer
+cypress/integration/Error Messages
+cypress/integration/examples
+cypress/integration/pageObjects
+
