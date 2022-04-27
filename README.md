@@ -40,6 +40,14 @@ When Cypres Runner Opens, click on amazon.ts file inside the Guild Education fol
 
 5. **To run the test on headless mode, use**
 
+for windows
+
 ```
 npx cypress run --spec "cypress\integration\Guild Education\amazon.ts"
+```
+
+for mac
+
+```
+npx cypress run --spec "cypress/integration/Guild Education/amazon.ts"
 ```
