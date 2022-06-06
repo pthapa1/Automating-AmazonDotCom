@@ -1,0 +1,237 @@
+/// <reference types="cypress" />
+
+// DONE
+// onboarding dealer with initial reps. Only applicable for US dealers.
+
+describe('Dealer Creation: OnBoarding flow', () => {
+  it('Start Creating Dealer', () => {
+    // Visit the //ServiceProviderOnboarding/CompanyInfo
+    cy.visit(
+      'https://www.alarm.test-us.adcinternal.com/ServiceProviderOnboarding/CompanyInfo'
+    );
+    cy.url().should('contain', '/ServiceProviderOnboarding/CompanyInfo');
+    // Company Info Card:
+
+    // ************** Dealer Name: *********************************
+    cy.scrollTo('top');
+    cy.fixture('dealerInfo').then((dealerInfo) => {
+      cy.get('#ctl00_MainContentPlaceHolder_tb_companyName').type(
+        dealerInfo.dealer_name
+      );
+    });
+
+    //Address:
+    cy.get('#ctl00_MainContentPlaceHolder_tb_CompanyAddress')
+      .type('8281 Greensboro Drive, Suite 100')
+      .tab()
+      .type('Tysons')
+      .tab()
+      .select('VA')
+      .tab()
+      .type('22102')
+      .tab()
+      .tab()
+      .type('8773894033');
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_panel1 > :nth-child(1)'
+    ).scrollIntoView();
+    // Licensing Information
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_rptStateTaxes_ctl00_txtStateTaxId'
+    ).type('1234Tax');
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_rptLicenses_ctl00_txtLicenseNumber'
+    ).type('1234tax');
+
+    //Primary Contact
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_panel1 > :nth-child(3)'
+    ).scrollIntoView();
+    cy.get('#ctl00_MainContentPlaceHolder_tb_ObContactName')
+      .type('Pratik')
+      .tab()
+      .type('Thapa')
+      .tab()
+      .type('pthapa@alarm.com')
+      .tab()
+      .type('8773894033');
+
+    // Owner Contact -- Same as Primary
+    cy.get('label').click();
+
+    // ************** Login Name: -- PASSWORD ******************************
+
+    cy.fixture('dealerInfo').then((dealerInfo) => {
+      cy.get('#ctl00_MainContentPlaceHolder_tb_DealerSiteUserName')
+        .type(dealerInfo.primary_login)
+        .tab()
+        .type('Pa$$@One1')
+        .tab()
+        .type('Pa$$@One1');
+    });
+
+    // Click Continue and SaveAndContinue
+    cy.get('#ctl00_SaveContinuePlaceHolder_btnShowConfirmEmailModal').click();
+    cy.get('#ctl00_SaveContinuePlaceHolder_ImageButton3').click();
+
+    cy.pause();
+
+    // Billing Contact
+    cy.get('#ctl00_MainContentPlaceHolder_tb_BillingFirstName').type('Pratik');
+    cy.get('#ctl00_MainContentPlaceHolder_tb_BillingLastName').type('Billing');
+
+    // Billing Address
+    cy.fixture('dealerInfo').then((dealerInfo) => {
+      cy.get('.full-row > .check-same > label').click(); //.wait(2000);
+      cy.get('#ctl00_MainContentPlaceHolder_tb_BillingEmail')
+        .type('pthapa@alarm.com')
+        .tab()
+        .type('8773894033')
+        .tab()
+        .type(dealerInfo.dealer_billing); //****************Billing Login name */
+    });
+    // operating manager Contact
+    cy.fixture('dealerInfo').then((dealerInfo) => {
+      cy.get('#ctl00_MainContentPlaceHolder_tb_OpContactFirstName')
+        .type(`Mr's Pratik`)
+        .tab()
+        .type('Operation')
+        .tab()
+        .type('pthapa@alarm.com')
+        .tab()
+        .type('8773894033')
+        .tab()
+        .type(dealerInfo.dealer_operation); // **************************
+    });
+
+    // Sales Manager. *********************************
+    cy.fixture('dealerInfo').then((dealerInfo) => {
+      cy.get('#ctl00_MainContentPlaceHolder_tb_SalesFirstName')
+        .type('Pratik')
+        .tab()
+        .type('Sales')
+        .tab()
+        .type('pthapa@alarm.com')
+        .tab()
+        .type('8773894033')
+        .tab()
+        .type(dealerInfo.dealer_sales); //************************
+    });
+
+    cy.get('#ctl00_SaveContinuePlaceHolder_ImageButton3').click(); //.wait(3000);
+
+    // About Your Company - Survey
+    cy.get(':nth-child(2) > .ui-multiselect').click().wait(500);
+    cy.get(
+      ':nth-child(2) > .ui-multiselect-menu > .ui-multiselect-checkboxes > :nth-child(10) > .ui-corner-all > span'
+    )
+      .click()
+      .wait(1000); // web search and wait a second
+
+    // click No - home automation before.
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_rblInstalledSecuritySystem > tbody > :nth-child(2) > td > label'
+    )
+      .click()
+      .wait(500);
+    // click No - dealer program
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_rblDealerProgram > tbody > :nth-child(2) > td > label'
+    )
+      .click()
+      .wait(500);
+    // No for Central Station
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_rblMonitoredByCentralStation > tbody > :nth-child(2) > td > label'
+    )
+      .click()
+      .wait(500);
+    //
+
+    cy.get(
+      '#ctl00_MainContentPlaceHolder_rblDistPartner > tbody > :nth-child(2) > td > label'
+    )
+      .wait(200)
+      .click()
+      .wait(500);
+    // How long have you been in business - Brand New
+    cy.get(':nth-child(3) > .ui-multiselect').click().wait(500);
+    cy.get(
+      ':nth-child(3) > .ui-multiselect-menu > .ui-multiselect-checkboxes > :nth-child(1) > .ui-corner-all > span'
+    )
+      .click()
+      .wait(200);
+    // how many customers do you create -- 10-29
+    cy.get(':nth-child(5) > .ui-multiselect').click().wait(500);
+    cy.get(
+      ':nth-child(5) > .ui-multiselect-menu > .ui-multiselect-checkboxes > :nth-child(3) > .ui-corner-all > span'
+    )
+      .click()
+      .wait(200);
+
+    // how many customers do you support
+    cy.get(':nth-child(7) > .ui-multiselect').click();
+    cy.get(
+      ':nth-child(7) > .ui-multiselect-menu > .ui-multiselect-checkboxes > :nth-child(4) > .ui-corner-all > span'
+    )
+      .click()
+      .wait(200);
+    // % residential
+    cy.get('#ctl00_MainContentPlaceHolder_txtPercentageResidential')
+      .type('50')
+      .wait(500);
+
+    // what industry would you consider your business
+    cy.get(':nth-child(13) > .ui-multiselect').click().wait(500);
+    cy.get(
+      ':nth-child(13) > .ui-multiselect-menu > .ui-multiselect-checkboxes > :nth-child(2) > .ui-corner-all > span'
+    ).click();
+    cy.get(':nth-child(13) > .ui-multiselect').click();
+
+    // primary service
+    cy.get(':nth-child(15) > .ui-multiselect').click().wait(500);
+    cy.get(
+      '#aspnetForm > div.onboarding-content > div.page > div:nth-child(1) > div.card > div:nth-child(15) > div > div > ul > li:nth-child(1) > a > span:nth-child(2)'
+    ).click();
+    cy.get(':nth-child(15) > .ui-multiselect').click();
+
+    // Which services are you planning to offer your customers?
+    cy.get(':nth-child(17) > .ui-multiselect').click().wait(500);
+    cy.get(
+      ':nth-child(17) > .ui-multiselect-menu > .ui-widget-header > .ui-helper-reset > :nth-child(1) > .ui-multiselect-all > :nth-child(2)'
+    ).click();
+    cy.get(':nth-child(17) > .ui-multiselect').click();
+
+    // business model?
+    cy.get(':nth-child(19) > .ui-multiselect').click().wait(500);
+    cy.get(
+      '#ui-multiselect-ctl00_MainContentPlaceHolder_ddlBusinessModel-option-3'
+    ).click();
+    cy.get(':nth-child(19) > .ui-multiselect').click();
+
+    // best time?
+    cy.get(':nth-child(21) > .ui-multiselect').click().wait(500);
+    cy.get(
+      ':nth-child(21) > .ui-multiselect-menu > .ui-multiselect-checkboxes > :nth-child(2) > .ui-corner-all > span'
+    )
+      .click()
+      .wait(200);
+
+    // Save and Continue
+    cy.get('#ctl00_SaveContinuePlaceHolder_btnSaveContinue').click().wait(2000);
+
+    // Agreement and Sign
+    cy.get(':nth-child(1) > td > label').click(); // Agree
+    // Sign
+    cy.get('#ctl00_MainContentPlaceHolder_tb_OfficerName').type('PratikThapa');
+    cy.get('#ctl00_MainContentPlaceHolder_tb_OfficerTitle').type(
+      `Test's Test's`
+    );
+
+    // next
+    cy.get('#ctl00_SaveContinuePlaceHolder_ImageButton2').click();
+
+    //
+    cy.scrollTo('top');
+  });
+});

@@ -1,0 +1,17 @@
+{
+  "name": "Pratik",
+  "lastName": "Thapa",
+  "email": "pthapa@alarm.com",
+  "phone": "8773894033",
+  "country": "USA",
+  "street1": "8281 Greebsboro Drive",
+  "street2": "suite 100",
+  "city": "McLean",
+  "state": "Virginia",
+  "zip": "22102",
+
+  "package_id": "208",
+
+  "monitoring_station_name_value": "4045",
+  "monitoring_station_account_no": "14874561"
+}
